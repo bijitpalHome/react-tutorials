@@ -1,41 +1,45 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 
-//let clock = function(){
-  //return <h2>{new Date().toLocaleTimeString()}</h2>
-//}
+class Inc extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {counter : 0}
+    //this.increment = this.increment.bind(this);//this is not a good solution, since,
+    //we can have many functions like increment, and we would need to add this kind of statement to bind the class instance
+    //this to bind to the function insatance-this
+    //that way, when we say, this.setState({}), within a function, this referes to the this of the class instance, and not the
+    //function instance.
+  }
 
-//one way of writing component
-// function Cartoon(props){
-//  return <h1>Hello, {props.name}</h1>
-// }
-
-//one way of writing component
-// class Cartoon extends React.Component{
-//   render(){
-//     return <h1>Hello, {this.props.name}</h1>
-//   }
-// }
-
-//can use component inside another component
-function Cartoon(props){
- return <h1>Hello, {props.name} on {props.show}</h1>
+increment(e){
+  e.preventDefault();
+  this.setState({
+    counter: this.state.counter + 1
+  })
 }
 
-function Show(){
-  return <div>
-           <Cartoon name='Pikachoo' show='Pokemon' />
-           <Cartoon name='Jasmine' show='Alladin' />
-        </div>
+  render(){
+     //return <a href='http://google.com' onClick={this.increment}>Value is {this.state.counter}</a>
+     //to solve the problem, said, above,
+     return <a href='http://google.com' onClick={(e) => this.increment(e)}>Value is {this.state.counter}</a>
+  }
+
+
+  //other way U can do it:. This is the preferred way
+  // increment = (e) => {
+  //   e.preventDefault();
+  //   this.setState({
+  //     counter: this.state.counter + 1
+  //   })
+  // }
+  //   render(){
+  //      return <a href='http://google.com' onClick={this.increment}>Value is {this.state.counter}</a>
+  //   }
+
 }
 
 ReactDom.render(
- //<h2>Time Now: {new Date().toLocaleTimeString()}</h2>,
- //<Cartoon name='Bijit'/>,
- <Show />,
+  <Inc/>,
   document.getElementById('root')
-);
-
-//Always a component return single html element.That means, a single <div> can
-//contain multiple elements inside it. But, on parent level, it has to be
-//a single element, such as the <div>
+)
