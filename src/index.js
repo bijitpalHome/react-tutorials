@@ -1,38 +1,44 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 
-function Message(props){
-  if(props.value){
-  return <h1>This is first message</h1>
- }
- else{
-   return <h1>This is 2nd message</h1>
- }
-}
+class Formtest extends React.Component{
+   constructor(props){
+     super(props);
+     // this.state = {value: ''}
+     //this.state = {value: false}
+     this.state = {value: 'alladin'}
+   }
 
-class Btn extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {value:true}
-  }
+   handleSubmit = (e) => {
+     console.log(this.state.value);
+     e.preventDefault();
+   }
 
-handleClick = () => {
-  this.setState({
-    value: !this.state.value
-  });
-}
+   handleChange = (e) =>{
+     this.setState({
+       //value : e.target.value
+       value : !this.state.value
+     })
+   }
 
-  render(){
-    return(
-      <div>
-         <button onClick={this.handleClick}>Change Message</button>
-         <Message value={this.state.value}/>
-      </div>
-    )
-  }
+    // <input type='text' value={this.state.value} onChange={this.handleChange} />
+    // <textarea value={this.state.value} onChange={this.handleChange}/>
+    // <label>Checkbox</label>
+    // <input type='checkbox' value={this.state.value} onChange={this.handleChange} />
+   render(){
+     return(
+       <form onSubmit={this.handleSubmit}>
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value='pikachu'>Pikachu</option>
+            <option value='alladin'>Alladin</option>
+          </select>
+          <input type="submit" value="Go ahead" />
+       </form>
+     )
+   }
 }
 
 ReactDom.render(
-  <Btn/>,
+  <Formtest />,
   document.getElementById('root')
 );
